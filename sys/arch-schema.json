@@ -12,7 +12,7 @@
             "description": "Short description of this architecture specification",
             "type": "string"
         },
-        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "repository": {"$ref":"common-schemas.json#/gitrepo"},
         "specifications": {
             "description": "List of architecture specification files",
             "type": "array",
