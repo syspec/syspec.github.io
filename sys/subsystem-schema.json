@@ -12,7 +12,7 @@
             "description": "Description of the sub-system",
             "type": "string"
         },
-        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "repository": {"$ref":"common-schemas.json#/gitrepo"},
         "specifications": {
             "description": "Technical specifications of this sub-system. Captured in one or more feature files.",
             "type": "array",
@@ -32,7 +32,7 @@
                         "pattern":"^[a-zA-Z0-9-_]+$"
                     },
                     {"$ref": "module-schema.json#"},
-                    {"$ref":"entity-schemas.json#/gitrepo"}
+                    {"$ref":"common-schemas.json#/gitrepo"}
                 ]
             }
         },
