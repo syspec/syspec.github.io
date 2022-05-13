@@ -12,7 +12,7 @@
             "description": "Package description",
             "type": "string"
         },
-        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "repository": {"$ref":"common-schemas.json#/gitrepo"},
         "tests": {
             "description": "Unit test scripts.",
             "type": "array",
