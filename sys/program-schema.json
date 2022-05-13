@@ -1,0 +1,76 @@
+{
+    "id": "https://syspec.io/sys/program-schema.json",
+    "title": "program Specification",
+    "description": "YAML schema for specifying a program.",
+    "type": "object",
+    "properties": {
+        "program": {
+            "description": "The ID of the program. ID can only contain alphanumeric characters along with '-' and/or '_'.",
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "description": {
+            "description": "A few lines about the program.",
+            "type": "string"
+        },
+        "goals": {
+            "description": "List of goals for this program. Each projects under this program must fulfill one or more of these goals.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "patternProperties": {
+                    "^[a-zA-Z0-9-_]+$": {
+                        "type":"string"
+                    }
+                }
+            }
+        },
+        "projects": {
+            "description": "List of projects ID under this program.",
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "pattern": "^[a-zA-Z0-9-_]+$"
+                    },
+                    {
+                        "type": "object",
+                        "$ref": "project-schema.json#"
+                    }
+                ]
+            }
+        },
+        "plans": {
+            "description": "List of plans for this program.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9-_]+$"
+            }
+        },
+        "people": {
+            "description": "People leading this program.",
+            "type": "object",
+            "properties": {
+                "manager": {
+                    "description": "Leads the program.",
+                    "$ref": "common-schemas.json#/person"
+                },
+                "leads": {
+                    "description": "Other non-technical participants in this program.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "description": "Participant",
+                        "$ref": "common-schemas.json#/person"
+                    }
+                }
+            },
+            "required": ["manager"],
+            "additionalProperties": false
+        }
+    },
+    "required":["program", "projects", "people"],
+    "additionalProperties": false
+}

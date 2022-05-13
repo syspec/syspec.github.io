@@ -1,0 +1,62 @@
+{
+    "id": "https://syspec.io/sys/product-schema.json",
+    "title": "Project Specification",
+    "description": "Details about this project",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "project": {
+            "description": "Unique ID for this project. If you are using program-schema, it should match one of the IDs from program spec.",
+            "type":"string",
+            "pattern": "^[a-zA-Z0-9-_]+$"
+        },
+        "description": {
+            "description": "Short description about this project",
+            "type": "string"
+        },
+        "products": {
+            "description": "Products delivered by this project.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "pattern":"^[a-zA-Z0-9-_]+$"
+                    },
+                    {
+                        "type":"object",
+                        "$ref": "product-schema.json#"
+                    }
+                ]
+            }
+        },
+        "requirements": {
+            "description": "Requirements specified for this project in one or more gherkin/cucumber feature files.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "people": {
+            "description": "People participating in this program.",
+            "type": "object",
+            "properties": {
+                "manager": {
+                    "description": "Coordinates tasks and keeps track of project progress",
+                    "$ref": "common-schemas.json#/person"
+                },
+                "team": {
+                    "description": "Team members. Includes development engineers, SREs, testers, etc.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "common-schemas.json#/person"
+                    }
+                },
+                "required": ["manager"],
+                "additionalProperties": false
+            }
+        }
+    },
+    "required": ["project", "products", "requirements", "people"]
+}

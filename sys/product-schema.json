@@ -1,0 +1,104 @@
+{
+    "id": "https://syspec.io/sys/product-schema.json",
+    "title": "Product Specification",
+    "description": "Specifications about this product. Specifies architecture for large/complex products. Design specification is used for simpler products.",
+    "type":"object",
+    "oneOf": [
+        {
+            "properties": {
+                "product": {"$ref": "#/$defs/product"},
+                "description": {"$ref": "#/$defs/description"},
+                "repository": {"$ref":"common-schemas.json#/gitrepo"},
+                "requirements": {"$ref": "#/$defs/product"},
+                "launch": {"$ref": "#/$defs/product"},
+                "ux-design": {"$ref": "#/$defs/product"},
+                "architecture": {
+                    "description": "Product architecture.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "description": "List of architecture specifications.",
+                                "pattern":"^[a-zA-Z0-9-_]+$"
+                            },
+                            {"$ref": "arch-schema.json#"}
+                        ]
+                    }
+                }
+            },
+            "required": ["product", "description", "requirements", "launch"]
+        },
+        {
+            "properties": {
+                "product": {"$ref": "#/$defs/product"},
+                "description": {"$ref": "#/$defs/description"},
+                "repository": {"$ref":"common-schemas.json#/gitrepo"},
+                "requirements": {"$ref": "#/$defs/requirements"},
+                "launch": {"$ref": "#/$defs/launch"},
+                "ux-design": {"$ref": "#/$defs/ux-design"},
+                "design": {
+                    "description": "Product design.",
+                    "type": "array",
+                    "uniqueItems": true,
+                    "items": {
+                        "oneOf": [
+                            {
+                                "type": "string",
+                                "description": "List of design specifications.",
+                                "pattern":"^[a-zA-Z0-9-_]+$"
+                            },
+                            {"$ref": "module-schema.json#"}
+                        ]
+                    }
+                }
+            },
+            "required": ["product", "description", "requirements", "launch"]
+        }
+    ],
+    "$defs": {
+        "product": {
+            "description": "Product ID",
+            "type": "string",
+            "pattern":"^[a-zA-Z0-9-_]+$"
+        },
+        "description": {
+            "description": "Description about the product",
+            "type": "string"
+        },
+        "requirements": {
+            "description": "Product requirement files",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]*$"
+            }
+        },
+        "launch": {
+            "type": "array",
+            "description": "List of files to launch the product.",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "description": "Launch file",
+                "pattern":"^[a-zA-Z0-9-_]+(\\.[a-zA-Z0-9-_])*$"
+            }
+        },
+        "ux-design": {
+            "description": "UI/UX design files",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "pattern": {
+                    "oneOf": [
+                        "^[a-zA-Z0-9-_]+(\\.[a-zA-Z0-9-_])*$",
+                        "^.*$"
+                    ]
+                }
+            }
+        }
+    }
+}

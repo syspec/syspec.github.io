@@ -1,0 +1,65 @@
+{
+    "id": "https://syspec.io/sys/plan-schema.json",
+    "title": "Plan Specification",
+    "description": "YAML schema for specifying a plan.",
+    "type": "object",
+    "properties": {
+        "plan": {
+            "description": "A set of tasks to complete",
+            "type":"string"
+        },
+        "plan-id": {
+            "description": "A unique identifier for this plan",
+            "type":"string"
+        },
+        "description": {
+            "description": "Description about the plan",
+            "type":"string"
+        },
+        "tasks": {
+            "description": "A list of tasks to complete",
+            "type": "array",
+            "items": {
+                "$ref": "#/sub-schemas/task-item"
+            }
+        }
+    },
+    "required": ["plan-id", "tasks"],
+    "additionalProperties": false, 
+
+    "sub-schemas": {
+        "task-item" : {
+            "description": "Details about the task",
+            "type": "object",
+            "properties": {
+                "task": {
+                    "description": "Description of the task to complete",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "Unique task identifier",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "Current state of the task",
+                    "type": "string",
+                    "enum": ["pending", "in-progress", "done"]
+                },
+                "depends":  {
+                    "description": "ID of the other task this one depends on",
+                    "type": "string"
+                },
+                "owner": {
+                    "description": "Person responsible for this task",
+                    "type": "string"
+                },
+                "notes": {
+                    "description": "Detailed notes about this task",
+                    "type": "string"
+                }
+            },
+            "required": ["id", "status"],
+            "additionalProperties": false
+        }
+    }
+}

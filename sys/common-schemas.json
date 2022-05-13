@@ -1,0 +1,45 @@
+{
+    "person": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "description": "The name of the person",
+                "type": "string"
+            },
+            "contact": {
+                "description": "The contact details of the person. Can be email or phone number",
+                "type": "string"
+            }
+        },
+        "required":["name"]
+    },
+    "gitrepo": {
+        "description": "Details about github repository",
+        "type": "object",
+        "properties": {
+            "description": {
+                "description": "Description about the repository",
+                "type": "string"
+            },
+            "provider": {
+                "description": "Provider who's hosting the repo (Github, Gitlab)",
+                "type": "string",
+                "enum": ["github", "gitlab"]
+            },
+            "account": {
+                "description": "The Github account holding the repo",
+                "type": "string"
+            },
+            "repo-name": {
+                "description": "The name of the repository",
+                "type": "string"
+            },
+            "release-branch": {
+                "description": "Git branch from which releases are built",
+                "type": "string"
+            }
+        },
+        "required": ["provider", "account", "repo-name", "release-branch"],
+        "additionalProperties": false
+    }
+}

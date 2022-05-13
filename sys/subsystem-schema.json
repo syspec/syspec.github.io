@@ -1,0 +1,84 @@
+{
+    "id": "https://syspec.io/sys/subsystem-schema.json",
+    "title": "High Level Design (HLD): Sub-system Specification",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "ID of the sub-system",
+            "type": "string",
+            "pattern":"^[a-zA-Z0-9-_]+$"
+        },
+        "description": {
+            "description": "Description of the sub-system",
+            "type": "string"
+        },
+        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "specifications": {
+            "description": "Technical specifications of this sub-system. Captured in one or more feature files.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.feature$"
+            }
+        },
+        "modules": {
+            "description": "Modules that implement this sub-system. Can be an external module ID, embedded module spec. or a git repo. containing the module.",
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "description": "Module ID.",
+                        "pattern":"^[a-zA-Z0-9-_]+$"
+                    },
+                    {"$ref": "module-schema.json#"},
+                    {"$ref":"entity-schemas.json#/gitrepo"}
+                ]
+            }
+        },
+        "packages": {
+            "description": "Packages that are part of this subsystem. These packages may include code that integrate various modules to form this sub-system.",
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "description": "Package name.",
+                        "pattern":"^[a-zA-Z0-9-_]+$"
+                    },
+                    {"$ref": "package-schema.json#"}
+                ]
+            }
+        },
+        "tests": {
+            "description": "Sub-system test scripts. Must include smoke, functional, performance and security tests.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]+$"
+            }
+        },
+        "build": {
+            "type": "array",
+            "description": "Build files.",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "description": "Build file",
+                "pattern":"^[a-zA-Z0-9-_]+(\\.[a-zA-Z0-9-_])*$"
+            }
+        },
+        "deploy": {
+            "type": "array",
+            "description": "Deployment scripts.",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "description": "Deployment Script.",
+                "pattern":"^[a-zA-Z0-9-_]+(\\.[a-zA-Z0-9-_])*$"
+            }
+        }
+    },
+    "required": ["id", "specifications", "tests", "build", "deploy"],
+    "additionalProperties": false
+}

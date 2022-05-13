@@ -1,0 +1,52 @@
+{
+    "id": "https://syspec.io/sys/arch-schema.json",
+    "title": "Architecture Specification",
+    "type": "object",
+    "description": "Technical Architecture Specification",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name for this architecture specification"
+        },
+        "description": {
+            "description": "Short description of this architecture specification",
+            "type": "string"
+        },
+        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "specifications": {
+            "description": "List of architecture specification files",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]+$"
+            }
+        },
+        "qa": {
+            "description": "List of system test files. Must include smoke, end-to-end, stress and security tests.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]+$"
+            }
+        },
+        "subsystems": {
+            "type": "array",
+            "description": "List of subsystems",        
+            "uniqueItems": true,
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "description": "Subsystem ID",
+                        "pattern":"^[a-zA-Z0-9-_]+$"
+                    },
+                    {"$ref": "subsystem-schema.json#"}
+                ]
+            }
+        }
+    },
+    "required": ["name", "specifications", "qa"],
+    "additionalProperties": false
+}

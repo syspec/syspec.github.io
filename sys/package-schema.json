@@ -1,0 +1,37 @@
+{
+    "id": "https://syspec.io/sys/module-schema.json",
+    "title": "Package Specification",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "Package name",
+            "type": "string",
+            "pattern":"^[a-zA-Z0-9-_]+$"
+        },
+        "description": {
+            "description": "Package description",
+            "type": "string"
+        },
+        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "tests": {
+            "description": "Unit test scripts.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]+$"
+            }
+        },
+        "code": {
+            "type": "array",
+            "description": "Code files that implement this package",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "description": "Code file",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]+$"
+            }
+        }
+    },
+    "required": ["name", "tests", "code"],
+    "additionalProperties": false
+}

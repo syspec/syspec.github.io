@@ -1,0 +1,59 @@
+{
+    "id": "https://syspec.io/sys/module-schema.json",
+    "title": "Module Specification",
+    "type": "object",
+    "properties": {
+        "module": {
+            "description": "ID of the module",
+            "type": "string",
+            "pattern":"^[a-zA-Z0-9-_]+$"
+        },
+        "description": {
+            "description": "Description of the module",
+            "type": "string"
+        },
+        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "packages": {
+            "description": "Packages that are part of this module",
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "string",
+                        "description": "Package name.",
+                        "pattern":"^[a-zA-Z0-9-_]+$"
+                    },
+                    {"$ref": "package-schema.json#"}
+                ]
+            }
+        },
+        "specifications": {
+            "description": "Specifications of this module. Captured in one or more feature files.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.feature$"
+            }
+        },
+        "tests": {
+            "description": "Integration test scripts.",
+            "type": "array",
+            "items": {
+                "type": "string",
+                "pattern":"^[a-zA-Z0-9-_]+\\.[a-zA-Z0-9-_]+$"
+            }
+        },
+        "build": {
+            "type": "array",
+            "description": "Module build files.",
+            "uniqueItems": true,
+            "items": {
+                "type": "string",
+                "description": "Build file",
+                "pattern":"^[a-zA-Z0-9-_]+(\\.[a-zA-Z0-9-_])*$"
+            }
+        }
+    },
+    "required": ["module", "specifications", "packages", "tests", "build"],
+    "additionalProperties": false
+}
