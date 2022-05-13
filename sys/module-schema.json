@@ -12,7 +12,7 @@
             "description": "Description of the module",
             "type": "string"
         },
-        "repository": {"$ref":"entity-schemas.json#/gitrepo"},
+        "repository": {"$ref":"common-schemas.json#/gitrepo"},
         "packages": {
             "description": "Packages that are part of this module",
             "type": "array",
