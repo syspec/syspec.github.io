@@ -1,0 +1,169 @@
+{
+    "id": "https://syspec.io/tm/entity-schema.json",
+    "title": "Component Specification",
+    "description": "YAML schema for specifying entities and flows. Each entity/flow captures applicable attacks and defenses. It also captures components that make up the entity/flow. Each component is another entity/flow with its own set of specifications.",
+    "type": "object",
+    "properties": {
+        "id": {
+            "description": "Unique identifier for this specification",
+            "type": "string"
+        },
+        "source": {
+            "description": "Document (path) containing design details about this specification.",
+            "type": "string"
+        },
+        "spec": {
+            "oneOf": [
+                {"$ref":"#/options/human"},
+                {"$ref":"#/options/program"},
+                {"$ref":"#/options/flow"}
+            ]
+        }
+    },
+    "required":["id"],
+    "additionalProperties": false,
+    "options": {
+        "human": {
+            "description": "Specification about a human",
+            "type":"object",
+            "properties": {
+                "type": {
+                    "description": "Type of entity is 'human'",
+                    "type": "string",
+                    "enum": ["human"]
+                },
+                "title": {
+                    "description": "A title for this human", 
+                    "type":"string"
+                },
+                "base": {
+                    "description": "Base human specification from which additional properties are inherited.",
+                    "type":["string","null"]
+                },
+                "roles": {
+                    "description": "Roles this human plays in the threat model. Each role is another human specification defined elsewhere.",
+                    "type":["array","null"],
+                    "items": {
+                        "type":"string"
+                    }
+                },
+                "client-program": {
+                    "description": "Program used by the human to interact with the system (for example, a browser).",
+                    "type":"string"
+                },
+                "recommendations": {
+                    "description": "A freeform, adhoc list of security recommendations for this human. NOTE: Use this only when a formal set of attacks and defenses cannot be defined for this human.",
+                    "type":"array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "adm":{
+                    "description":"List of attack/defense specifications for this human. Attacks are directed towards the human and defenses are mitigations employed by the human to deal with attacks.\n\nEach item in the list can be text containing attacks and defenses or an '.adm' file. In case of files, they must exist in the same path as this specification.",
+                    "type":["array","string", "null"],
+                    "items": {
+                        "type":"string",
+                        "pattern": "^.*\\.adm$"
+                    },
+                    "pattern": "^.*\\.adm$"
+                }
+            },
+            "required": ["title", "type", "adm"],
+            "additionalProperties": false
+            
+        },
+        "program": {
+            "description": "Specification about a program",
+            "type":"object",
+            "properties": {
+                "type": {
+                    "description": "Type of entity is 'program'",
+                    "type": "string",
+                    "enum": ["program", "system"]
+                },
+                "title": {
+                    "description": "Title for this program", 
+                    "type":"string"
+                },
+                "repo": {
+                    "description": "Path to the code repository of this program", 
+                    "type":["string","null"]
+                },
+                "base": {
+                    "description": "Base entity specification from which additional properties are inherited.", 
+                    "type":["string","null"]
+                },
+                "languages": {
+                    "description": "Programming language(s) this entity is written in.", 
+                    "type":["array","null"]
+                },
+                "parts": {
+                    "description": "Packages/Libraries/Components used in the program.",
+                    "type":["array", "string", "null"],
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "recommendations": {
+                    "description": "A freeform, adhoc list of security recommendations for this entity. NOTE: Use this only when a formal set of attacks and defenses cannot be defined for this entity.",
+                    "type":"array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "adm":{
+                    "description":"List of attack/defense specifications for this program. Attacks are directed towards this entity and defenses are controls implemented in the entity to block/mitigate attacks.  If you are grouping attacks/defenses into STRIDE categories, all 6 categories are applicable for a program.\n\nEach item in the list can be text containing attacks and defenses or an '.adm' file. In case of files, they must exist in the same path as this specification.",
+                    "type":["array","string", "null"],
+                    "items": {
+                        "type":"string",
+                        "pattern": "^.*\\.adm$"
+                    },
+                    "pattern": "^.*\\.adm$"
+                }
+            },
+            "required": ["title", "type", "adm"],
+            "additionalProperties": false
+        },
+        "flow": {
+            "description": "A flow connecting humans/entities",
+            "type":"object",
+            "properties": {
+                "title": {
+                    "description": "Title for this flow", 
+                    "type":"string"
+                },
+                "type": {
+                    "description": "This specification is about a flow",
+                    "type": "string",
+                    "enum": ["flow"]
+                },
+                "base-protocol": {
+                    "description": "Protocol this flow is based on. Base protocol is another flow specification defined elsewhere.", 
+                    "type":"string"
+                },
+                "protocol-stack": {
+                    "description": "Protocol stack underlying this flow (excluding the 'base-protocol')",
+                    "type": "array"
+                },
+                "recommendations": {
+                    "description": "A freeform, adhoc list of security recommendations for this flow. NOTE: Use this only when a formal set of attacks and defenses cannot be defined for this flow.",
+                    "type":"array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "adm":{
+                    "description":"List of attack/defense specifications for this flow. Attacks are directed towards this flow and defenses are controls implemented by the flow (typically in the protocol) to mitigate attacks. If you are grouping attacks/defenses into STRIDE categories, only 'Tampering', 'Info. Disclosure' and 'Denial of Service' are applicable.\n\nEach item in the list can be text containing attacks and defenses or an '.adm' file. In case of files, they must exist in the same path as this specification.",
+                    "type":["array","string", "null"],
+                    "items": {
+                        "type":"string",
+                        "pattern": "^.*\\.adm$"
+                    },
+                    "pattern": "^.*\\.adm$"
+                }
+            },
+            "required": ["title", "type", "adm"],
+            "additionalProperties": false
+        }
+    }
+}
