@@ -1,5 +1,5 @@
 {
-    "id": "https://syspec.io/tm/model-schema.json",
+    "id": "https://syspec.io/tm/v0.1/model-schema.json",
     "title": "Threat Model Specification",
     "description": "YAML schema for specifying a threat model. It utilizes attack/defense modeling as a means to capture security analysis. Attacks and defenses are grouped into externals, entities and flows to provide a comprehensive view of the model's security posture.",
     "type": "object",
