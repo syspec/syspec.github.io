@@ -1,5 +1,5 @@
 {
-    "id": "https://syspec.io/tm/entity-schema.json",
+    "id": "https://syspec.io/tm/v0.1/entity-schema.json",
     "title": "Component Specification",
     "description": "YAML schema for specifying entities and flows. Each entity/flow captures applicable attacks and defenses. It also captures components that make up the entity/flow. Each component is another entity/flow with its own set of specifications.",
     "type": "object",
