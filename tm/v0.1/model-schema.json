@@ -74,6 +74,7 @@
             },
             "additionalProperties":false
         },
+        "required": ["tmspec_version", "model"],
         "additionalProperties":false
     },
 

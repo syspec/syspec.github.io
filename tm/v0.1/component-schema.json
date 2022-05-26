@@ -1,5 +1,5 @@
 {
-    "id": "https://syspec.io/tm/v0.1/entity-schema.json",
+    "id": "https://syspec.io/tm/v0.1/component-schema.json",
     "title": "Component Specification",
     "description": "YAML schema for specifying entities and flows. Each entity/flow captures applicable attacks and defenses. It also captures components that make up the entity/flow. Each component is another entity/flow with its own set of specifications.",
     "type": "object",
@@ -8,7 +8,7 @@
             "description": "Unique identifier for this specification",
             "type": "string"
         },
-        "source": {
+        "design-document": {
             "description": "Document (path) containing design details about this specification.",
             "type": "string"
         },
@@ -70,7 +70,6 @@
             },
             "required": ["title", "type", "adm"],
             "additionalProperties": false
-            
         },
         "program": {
             "description": "Specification about a program",
