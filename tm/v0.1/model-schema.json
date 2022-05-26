@@ -13,6 +13,10 @@
             "description": "Path to document containing details of system and its components",
             "type": ["string","null"]
         },
+        "addb": {
+            "description": "URL of attack-defense database. Attacks and defenses for entities shown under 'base' or 'parts' can be sourced from this database",
+            "type": "string"
+        },
         "model": {
             "description": "A threat model",
             "type": "object",
@@ -74,7 +78,7 @@
             },
             "additionalProperties":false
         },
-        "required": ["tmspec_version", "model"],
+        "required": ["tmspec_version", "model", "addb"],
         "additionalProperties":false
     },
 
