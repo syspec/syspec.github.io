@@ -106,10 +106,6 @@
                     "description": "Packages/Libraries imported-by/included-in this program.",
                     "type":["array","null"]
                 },
-                "components": {
-                    "description": "Components that are part of this entity.\n\nComponents are not packages/libraries. These are separate programs that are run to fulfill this entity's needs.",
-                    "type":["array","null"]
-                },
                 "recommendations": {
                     "description": "A freeform, adhoc list of security recommendations for this entity. NOTE: Use this only when a formal set of attacks and defenses cannot be defined for this entity.",
                     "type":"array",
@@ -148,11 +144,11 @@
                     "type": "string"
                 },
                 "base-protocol": {
-                    "description": "Protocol this flow is based on. Base protocol is another flow specification defined elsewhere.", 
+                    "description": "Protocol this flow is based on. Base protocol is another flow specification.", 
                     "type":"string"
                 },
                 "protocol-stack": {
-                    "description": "Protocol stack underlying this flow (excluding the 'base-protocol')",
+                    "description": "Protocol stack underlying this flow excluding the 'base-protocol'. Stack defined in 'base-protocol' need not be included here. Each stack entry is another flow specification.",
                     "type": "array"
                 },
                 "recommendations": {
