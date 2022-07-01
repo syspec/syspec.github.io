@@ -145,7 +145,10 @@
             "properties": {
                 "type": {"$ref": "component-schema.json#/options/flow/properties/type"},
                 "description": {"$ref": "component-schema.json#/options/flow/properties/description"},
-                "base": {"$ref": "component-schema.json#/options/flow/properties/base-protocol"},
+                "protocol": {
+                    "description": "Communication protocol used in this flow.",
+                    "type":"string"
+                },
                 "sender": {
                     "description": "Entity/Human initiating this flow",
                     "type":"string"
@@ -158,7 +161,7 @@
                 "adm":{"$ref": "component-schema.json#/options/flow/properties/adm"}
             },
             "additionalProperties":false,
-            "required":["type", "description", "base", "sender", "receiver", "adm"]
+            "required":["type", "description", "protocol", "sender", "receiver", "adm"]
         }
     }
 }
